@@ -1,0 +1,31 @@
+# Databricks Asset Bundle configuration
+bundle:
+  name: "ecommerce-analytics"
+
+include:
+  - resources/*.yml
+
+# Define variables here to be used in jobs.yml and pipelines.yml
+variables:
+  target_schema:
+    description: "The Unity Catalog schema for Medallion layers"
+    default: "dev_silver_layer"
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-202f4808-1754.cloud.databricks.com
+    variables:
+      target_schema: "dev_silver_layer"
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-202f4808-1754.cloud.databricks.com
+      root_path: /Users/subrat.r.narain@v4c.ai/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      target_schema: "prod_silver_layer"
+    run_as:
+      user_name: subrat.r.narain@v4c.ai

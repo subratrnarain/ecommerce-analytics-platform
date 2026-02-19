@@ -1,0 +1,18 @@
+# Filename: resources/pipelines.yml
+resources:
+  pipelines:
+    ecommerce_behavior_pipeline:
+      name: ${bundle.target}-ecommerce-behavior-pipeline
+      target: ${bundle.target}_silver_layer
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipelines/streaming_pipeline.py
+      clusters:
+        - label: default
+          autoscale:
+            min_workers: 1
+            max_workers: 5
+            mode: ENHANCED
+      continuous: false
+      development: true
+      catalog: workspace

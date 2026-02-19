@@ -1,0 +1,24 @@
+# Filename: resources/jobs.yml
+resources:
+  jobs:
+    ecommerce_etl_job:
+      name: ${bundle.target}-ecommerce-etl-job
+      tasks:
+        - task_key: Bronze_Ingestion
+          job_cluster_key: default_cluster
+          notebook_task:
+            notebook_path: ../src/notebooks/bronze_ingestion.py
+
+        - task_key: Gold_KPI_Aggregation
+          depends_on:
+            - task_key: Bronze_Ingestion
+          job_cluster_key: default_cluster
+          notebook_task:
+            notebook_path: ../src/notebooks/gold_aggregation.py
+
+      job_clusters:
+        - job_cluster_key: default_cluster
+          new_cluster:
+            spark_version: 15.4.x-scala2.12
+            node_type_id: Standard_DS3_v2
+            num_workers: 2
