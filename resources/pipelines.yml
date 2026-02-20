@@ -14,5 +14,5 @@ resources:
             max_workers: 5
             mode: ENHANCED
       continuous: false
-      development: true
+      development: false
       catalog: workspace
