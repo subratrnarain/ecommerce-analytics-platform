@@ -1,0 +1,31 @@
+name: Databricks CD
+
+# Trigger the workflow on pushes to the main branch
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    name: Deploy Bundle to Dev
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Download the Databricks CLI
+      - uses: databricks/setup-cli@dev
+
+      - name: Validate Bundle
+        run: databricks bundle validate -t dev
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_DEV_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_DEV_TOKEN }}
+
+      - name: Deploy Bundle
+        run: databricks bundle deploy -t dev --auto-approve
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_DEV_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_DEV_TOKEN }}
