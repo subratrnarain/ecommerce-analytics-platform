@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       # Download the Databricks CLI
-      - uses: databricks/setup-cli@v4
+      - uses: databricks/setup-cli@main
 
       - name: Validate Bundle
         run: databricks bundle validate -t dev
