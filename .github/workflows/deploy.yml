@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Download the Databricks CLI
-      - uses: databricks/setup-cli@dev
+      - uses: databricks/setup-cli@v4
 
       - name: Validate Bundle
         run: databricks bundle validate -t dev
