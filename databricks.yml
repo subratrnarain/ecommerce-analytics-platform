@@ -16,14 +16,14 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://dbc-202f4808-1754.cloud.databricks.com
+      host: https://dbc-3a89f8d2-6d02.cloud.databricks.com
     variables:
       target_schema: "dev_silver_layer"
 
   prod:
     mode: production
     workspace:
-      host: https://dbc-202f4808-1754.cloud.databricks.com
+      host: https://dbc-3a89f8d2-6d02.cloud.databricks.com
       root_path: /Users/subrat.r.narain@v4c.ai/.bundle/${bundle.name}/${bundle.target}
     variables:
       target_schema: "prod_silver_layer"
