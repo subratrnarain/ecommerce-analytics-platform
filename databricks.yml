@@ -1,6 +1,6 @@
 # Databricks Asset Bundle configuration
 bundle:
-  name: "ecommerce-analytics"
+  name: "ecommerce-analytics-platform"
 
 include:
   - resources/*.yml
