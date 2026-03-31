@@ -36,3 +36,26 @@ resources:
       continuous: false
       development: true
       catalog: workspace
+
+  synced_database_tables:
+    # Key for this specific table sync
+    product_metrics_sync:
+      # The source table
+      source_table_full_name: "workspace.gold_layer.product_performance_metrics"
+      # The DESTINATION (Lakebase)
+      # Reference defined earlier
+      parent: ${resources.postgres_projects.my_app.id}
+      target_database: "databricks_postgres"
+      target_schema: "gold_layer"
+      target_table: "product_perf_matrics_sync"
+      # Sync Mode: CONTINUOUS, TRIGGERED, or SNAPSHOT
+      sync_mode: "CONTINUOUS"
+
+    # Second Table: User Behavior
+    user_behavior_sync:
+      parent: ${resources.postgres_projects.my_app.id}
+      source_table_full_name: "main.gold_layer.product_performance"
+      target_database: "databricks_postgres"
+      target_schema: "gold_layer"
+      target_table: "product_per_sync"
+      sync_mode: "TRIGGERED"
