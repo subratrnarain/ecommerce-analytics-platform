@@ -1,5 +1,25 @@
 # Filename: resources/pipelines.yml
 resources:
+  postgres_projects:
+    my_app:
+      project_id: 'lakebase-test-project'
+      display_name: 'lakebase-test-project'
+      pg_version: 17
+
+  postgres_branches:
+    dev_branch:
+      parent: ${resources.postgres_projects.my_app.id}
+      branch_id: 'dev'
+      no_expiry: true
+
+  postgres_endpoints:
+    dev_endpoint:
+      parent: ${resources.postgres_branches.dev_branch.id}
+      endpoint_id: 'primary'
+      endpoint_type: 'ENDPOINT_TYPE_READ_WRITE'
+      autoscaling_limit_min_cu: 0.5
+      autoscaling_limit_max_cu: 2
+
   pipelines:
     ecommerce_behavior_pipeline:
       name: ${bundle.target}-ecommerce-behavior-pipeline
